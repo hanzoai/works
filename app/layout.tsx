@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { bootScript } from '@hanzo/appearance/state'
 import { appCount } from '@/src/products'
+import { Providers } from './providers'
 import './globals.css'
 
 const title = 'Hanzo Works'
@@ -40,7 +41,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }

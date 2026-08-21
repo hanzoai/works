@@ -2,7 +2,7 @@
   "name": "@hanzo/works",
   "version": "0.1.0",
   "private": true,
-  "description": "hanzo.works — the apps a company runs on, served as capabilities on one API.",
+  "description": "hanzo.works \u2014 the apps a company runs on, served as capabilities on one API.",
   "packageManager": "pnpm@9.15.0",
   "engines": {
     "node": ">=22.18"
@@ -17,6 +17,7 @@
   "dependencies": {
     "@hanzo/appearance": "^0.2.1",
     "@hanzo/design": "^0.5.16",
+    "@hanzo/event": "^0.3.36",
     "@hanzo/iam": "^0.21.16",
     "@hanzo/logo": "^1.0.20",
     "next": "16.2.12",
