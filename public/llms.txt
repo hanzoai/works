@@ -10,8 +10,8 @@ below runs on the same cloud, is scoped to your org by the same identity, and
 meters against the same balance. An agent you grant an identity opens the same
 apps your people do.
 
-Identity is Hanzo IAM at `https://hanzo.id` — OIDC, Authorization Code + PKCE.
-There is no second login.
+Identity is Hanzo IAM at `https://hanzo.id`. One login covers every product
+here; this page holds none of it and signs nobody in, it links to the console.
 
 ## Install
 

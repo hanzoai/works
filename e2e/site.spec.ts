@@ -174,24 +174,22 @@ test.describe('the page a person sees', () => {
     }
   })
 
-  test('sign-in goes to Hanzo IAM and nowhere else', async ({ page }) => {
+  test('sign-in hands off, and this page holds no identity of its own', async ({ page }) => {
     await page.goto('/')
-    // The button must reach hanzo.id's authorize endpoint carrying a PKCE
-    // challenge. A local form, a password field or a second identity is the one
-    // thing this site may never grow.
+    // A password field, a local form or a second identity is the one thing this
+    // site may never grow. Sign in is a link to a surface that authenticates
+    // against Hanzo IAM; nothing here mints or verifies anything.
     await expect(page.locator('input[type="password"]')).toHaveCount(0)
+    await expect(page.locator('form')).toHaveCount(0)
 
-    const nav = page.waitForRequest(
-      (r) => r.url().includes('hanzo.id') && r.url().includes('/oauth/authorize'),
-      { timeout: 15_000 },
-    )
-    await page.getByRole('button', { name: 'Sign in' }).click()
-    const url = new URL((await nav).url())
-    expect(url.origin).toBe('https://hanzo.id')
-    expect(url.searchParams.get('client_id')).toBe('hanzo-works')
-    expect(url.searchParams.get('code_challenge_method')).toBe('S256')
-    expect(url.searchParams.get('code_challenge')).toBeTruthy()
-    expect(url.searchParams.get('redirect_uri')).toContain('/auth/callback')
+    // Every "Sign in" on the page goes to the same place. Two destinations for
+    // one word is two answers to "where do I log in".
+    const signin = page.getByRole('link', { name: 'Sign in' })
+    const n = await signin.count()
+    expect(n).toBeGreaterThan(0)
+    for (let i = 0; i < n; i++) {
+      await expect(signin.nth(i)).toHaveAttribute('href', 'https://console.hanzo.ai')
+    }
   })
 })
 
@@ -266,12 +264,10 @@ test.describe('the page a machine reads', () => {
     expect(robots ?? 'index, follow').not.toContain('noindex')
   })
 
-  test('the callback page exists as a directory index', async ({ page }) => {
-    // trailingSlash: true is what makes this resolve. Flat `.html` siblings
-    // 404 on a plain file server, and the 404 lands on the OAuth return trip
-    // where it is hardest to notice.
-    const res = await page.request.get('/auth/callback/')
-    expect(res.ok()).toBeTruthy()
-    expect(await res.text()).toContain('Signing you in')
+  test('a path with no file is a 404, not the homepage', async ({ page }) => {
+    // spaMode is off on the serving side for this reason. A fallback would
+    // answer 200-with-the-homepage for a missing chunk and hide the break.
+    const res = await page.request.get('/nothing-here/')
+    expect(res.status()).toBe(404)
   })
 })

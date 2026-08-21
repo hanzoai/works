@@ -11,9 +11,6 @@ importers:
       '@hanzo/appearance':
         specifier: ^0.2.1
         version: 0.2.1(react@19.2.8)
-      '@hanzo/brand':
-        specifier: ^1.4.6
-        version: 1.4.6(react@19.2.8)
       '@hanzo/design':
         specifier: ^0.5.16
         version: 0.5.17
@@ -61,15 +58,6 @@ packages:
     resolution: {integrity: sha512-IprmCj6CwskyW8Q43IawcvYm6XJRCG0FNLYXX9K5qxQSETrlA1yKg/k0ljXcJuIK6cSDb9V1yQVGoQw3RPZmww==}
     peerDependencies:
       react: '>=19'
-
-  '@hanzo/brand@1.4.6':
-    resolution: {integrity: sha512-Pn0rBr4n0yCx9KiNuL2lU1ikRcVlgNadfB4LfOkh4b+RGJNfxgg+CQVa0WJFwRKYVWfCyPucvwqNAh9MihGZtQ==}
-    hasBin: true
-    peerDependencies:
-      react: '>=18'
-    peerDependenciesMeta:
-      react:
-        optional: true
 
   '@hanzo/design@0.5.17':
     resolution: {integrity: sha512-jkYV9Tcz8NC2g0aOetGvJTMoFA3Z4+m2Aet23Dzd5X78Zgk56rpYy0R5SMO0MMUrYYIyGSQ62332KG9S4q5aXQ==}
@@ -459,12 +447,6 @@ snapshots:
   '@hanzo/appearance@0.2.1(react@19.2.8)':
     dependencies:
       '@hanzo/design': 0.5.17
-      react: 19.2.8
-
-  '@hanzo/brand@1.4.6(react@19.2.8)':
-    dependencies:
-      '@hanzo/logo': 1.0.20(react@19.2.8)
-    optionalDependencies:
       react: 19.2.8
 
   '@hanzo/design@0.5.17': {}

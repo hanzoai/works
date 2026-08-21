@@ -35,19 +35,18 @@ every address the page sends a reader to answers.
 | UI | React 19 |
 | Design | `@hanzo/design` — every colour, rule, radius and type rung |
 | Mark | `@hanzo/logo` |
-| Brand | `@hanzo/brand` — the identity record, including the IAM issuer |
 | Appearance | `@hanzo/appearance` — a person's type scale, density and accent |
-| Login | `@hanzo/iam` — Hanzo IAM at `hanzo.id`, OIDC Authorization Code + PKCE |
+| Theme | `@hanzo/iam` — `applyTheme`, the one light/dark control |
 | Marks | `simple-icons` (CC0), inlined at build time |
 | Gates | Playwright over the exported bytes |
 
 ## Layout
 
 ```
-app/            layout, the page, the OAuth callback, sitemap
+app/            layout, the page, sitemap
 components/     Chrome.tsx (the one client boundary), Connects.tsx
-src/            products.ts, integrations.ts, iam.ts
-public/         robots.txt, llms.txt, CNAME
+src/            products.ts, integrations.ts
+public/         robots.txt, llms.txt
 e2e/            the gates and the static server they measure against
 .hanzo/         cicd.yml, deploy.yml
 hanzo.yml       the canonical CI config

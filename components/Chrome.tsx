@@ -1,25 +1,28 @@
 'use client'
 
 /**
- * The nav: the mark, who you are, and what the page is set in.
+ * The nav: the mark, the theme, and the way in.
  *
- * This module is the client boundary. `@hanzo/iam` and `@hanzo/logo` ship no
- * `"use client"` directive of their own, so importing them from a Server
- * Component fails — one barrel here is the whole fix, and it is why the rest
- * of the page can stay a Server Component that ships no JavaScript.
+ * This module is the client boundary. `@hanzo/logo` ships no `"use client"`
+ * directive of its own, so importing it from a Server Component fails — one
+ * barrel here is the whole fix, and it is why the rest of the page stays a
+ * Server Component that ships no JavaScript.
+ *
+ * Sign in is a LINK to the console, not a session minted here. This page has no
+ * signed-in state to show, so an OAuth client of its own would buy a name in
+ * the corner and cost a registration. The console signs people in against Hanzo
+ * IAM, which is the one identity either way.
  */
 
 import { useCallback, useEffect, useState } from 'react'
 import { HanzoLogo } from '@hanzo/logo/react'
-import { getSession, getUser, logout, startLogin } from '@hanzo/iam/browser'
 import { applyTheme, readThemeMode, type ThemeMode } from '@hanzo/iam/react'
-import { iam } from '@/src/iam'
 
 /**
  * The design system is dark at `:root` and flips on `.light`;
- * `applyTheme` writes `data-theme` and the `dark` class Tailwind keys off.
- * One control, so the two conventions cannot disagree — this mirrors its
- * ANSWER onto the class the tokens actually read.
+ * `applyTheme` writes `data-theme` and the `dark` class. One control, so the
+ * two conventions cannot disagree — this mirrors its ANSWER onto the class the
+ * tokens actually read.
  */
 function setTheme(mode: ThemeMode) {
   const resolved = applyTheme(mode)
@@ -30,15 +33,9 @@ const NEXT: Record<ThemeMode, ThemeMode> = { system: 'light', light: 'dark', dar
 
 export function Chrome() {
   const [mode, setMode] = useState<ThemeMode>('system')
-  const [who, setWho] = useState<string | null>(null)
 
   useEffect(() => {
-    iam()
     setMode(readThemeMode())
-    if (!getSession().authenticated) return
-    getUser()
-      .then((u) => setWho(u?.name || u?.email || 'signed in'))
-      .catch(() => setWho(null))
   }, [])
 
   const cycle = useCallback(() => {
@@ -63,8 +60,7 @@ export function Chrome() {
               currentColor so it flips with the theme.
               `variant="animated"` and NOT the `animated` motion shell: the
               shell brings its own wordmark that slides in and collapses, and
-              the lockup beside it is already the wordmark. Two of them means
-              the nav says the brand twice and reflows on hover. */}
+              the lockup beside it is already the wordmark. */}
           <HanzoLogo variant="animated" size={20} />
           <span>
             HANZO<i>WORKS</i>
@@ -77,15 +73,9 @@ export function Chrome() {
           <a className="navlink" href="https://hanzo.ai">
             hanzo.ai
           </a>
-          {who ? (
-            <button className="navlink" onClick={() => void logout()} type="button">
-              Sign out
-            </button>
-          ) : (
-            <button className="navlink" onClick={() => void startLogin()} type="button">
-              Sign in
-            </button>
-          )}
+          <a className="navlink" href="https://console.hanzo.ai">
+            Sign in
+          </a>
         </div>
       </div>
     </nav>

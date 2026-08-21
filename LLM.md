@@ -56,14 +56,17 @@ stays a Server Component and ships no JavaScript.
 
 ## Auth
 
-Hanzo IAM, and there is nothing else. `src/iam.ts` states the issuer (off
-`@hanzo/brand`), the client id `hanzo-works` (`<org>-<app>`) and the callback
-path, then calls `configureIam`. No password field, no session minted here, no
-token verified here.
+**This page holds no identity.** Sign in is a link to `console.hanzo.ai`, which
+authenticates against Hanzo IAM. There is no password field, no form, no session
+minted here and no token verified here, and a gate asserts all four.
 
-PKCE-S256 is what lets a static export run this: the verifier never leaves the
-browser, so there is no client secret and no server. A gate proves it against
-the real issuer.
+It does not run its own OAuth client, and should not grow one. A marketing page
+has no signed-in state worth showing, so a client of its own buys a name in the
+corner and costs an IAM application registration — which is a provisioning
+dependency that breaks the button when it is missing. Every product this page
+links to signs its own visitors in.
+
+`@hanzo/iam` stays a dependency for `applyTheme`/`readThemeMode` only.
 
 ## Config
 
@@ -73,8 +76,8 @@ headers belong in a `headers` middleware in front of the static one on the
 serving side — `public/_headers` is not read by `hanzoai/ingress`.
 
 **`trailingSlash: true` is load-bearing.** It makes the export a tree of
-directory indexes, so `/auth/callback/` resolves. The flat form emits
-`auth/callback.html`, which a plain file server 404s on the OAuth return trip.
+directory indexes, which is what a plain file server resolves. The flat form
+emits siblings like `foo.html`, which 404 when asked for as `/foo/`.
 
 **`.hanzo/workflows/`, never `.github/workflows/`.** The forge reads the first
 workflow directory that exists. `hanzo-build-linux-amd64` is advertised only by

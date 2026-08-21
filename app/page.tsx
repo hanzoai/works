@@ -148,7 +148,7 @@ export default function Home() {
               <b>Hanzo</b>
               <a href="https://hanzo.ai">hanzo.ai</a>
               <a href="https://docs.hanzo.ai">Docs</a>
-              <a href="https://hanzo.id">Sign in</a>
+              <a href="https://console.hanzo.ai">Sign in</a>
               <a href="https://github.com/hanzoai">GitHub</a>
             </div>
           </div>

@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@hanzo/appearance": "^0.2.1",
-    "@hanzo/brand": "^1.4.6",
     "@hanzo/design": "^0.5.16",
     "@hanzo/iam": "^0.21.16",
     "@hanzo/logo": "^1.0.20",
