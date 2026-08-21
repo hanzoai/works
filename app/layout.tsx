@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import { bootScript } from '@hanzo/appearance/state'
-import { count } from '@/src/capabilities'
+import { appCount } from '@/src/products'
 import './globals.css'
 
 const title = 'Hanzo Works'
-const description = `The apps a company runs on — sales, books, cap table, campaigns, support — served as ${count} capabilities on one API.`
+const description = `The browser extension, Hanzo Team, the bot on your team's chat, and ${appCount} business apps — CRM, support, books, cap table, e-sign — on one login and one bill.`
 const url = 'https://hanzo.works'
 
 export const metadata: Metadata = {
