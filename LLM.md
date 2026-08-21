@@ -105,11 +105,24 @@ no replicas.
 | Publish | `.hanzo/workflows/deploy.yml` → `hanzoai/ci` `site@v1` → `s3://hanzo-sites/hanzo/hanzo-works` |
 | Route | `universe` `charts/app/values/hanzo/static-sites.yaml` — middleware + route, auto-syncs |
 | Cert | `universe` `infra/k8s/ingress/wildcard-certs.yaml` — `wildcard-hanzo-works`, auto-syncs |
-| DNS | Cloudflare zone `hanzo.works`, apex + `www` A → `hanzo/ingress-lb`, proxied |
+| DNS | reconciled from the route — see below |
 
 `spaMode: false`. The export is `trailingSlash: true` directory indexes with a
 real file per route; an SPA fallback would answer 200 with the homepage for
 every missing chunk.
+
+**Do not write a `infra/cf-zones/hanzo-works.yaml`.** The `cloud` binary reads
+`CLOUDFLARE_API_KEY`/`CLOUDFLARE_EMAIL` from KMS on a loop and reconciles
+Cloudflare records from the IngressRoute — apex and `www` A records for this
+host appeared on their own once the route synced, proxied, pointed at
+`hanzo/ingress-lb`. A zone file would be a second owner of records something
+else already writes. The four zone files that do exist predate this.
+
+Response headers are the `hanzo-works-headers` middleware on that route, and
+they have to be: `staticFiles` reads objects out of S3 and never a `_headers`
+file, so a header the site wants is a middleware or it does not exist. The CSP
+is enforcing and names `hanzo.id` and `api.hanzo.ai` because those are the only
+origins the page reaches.
 
 Read the ingress LB address live rather than from a file — DigitalOcean recycles
 released IPs:
