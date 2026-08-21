@@ -1,0 +1,429 @@
+/* hanzo.works
+ *
+ * The whole palette, type ramp, radii and hairline rules come from
+ * @hanzo/design. Nothing below invents a colour: every value is a token that
+ * package publishes, so this page and every other Hanzo surface move together
+ * when the system does — and @hanzo/appearance's knobs (--type-scale,
+ * --type-ratio, --density, --accent) reach it for free, because the ramp
+ * already multiplies by them.
+ *
+ * The design system is DARK by default and flips on `.light` at the root.
+ * `applyTheme()` from @hanzo/iam/react is the one control; components/Theme.tsx
+ * mirrors its answer onto that class.
+ */
+@import '@hanzo/design/styles.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The measure. One rail, so nav, hero and every section align on one edge. */
+.wrap {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 0 1.75rem;
+}
+
+/* ── The dot field ──────────────────────────────────────────────────────
+   One repeating radial-gradient, masked out along the diagonal so it reads
+   as a wave rather than wallpaper. It is the family resemblance to
+   hanzoskills.com, drawn here in design-system tokens. */
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--border-strong) 1px, transparent 1px);
+  background-size: 7px 7px;
+  -webkit-mask-image: linear-gradient(115deg, #000 0%, rgb(0 0 0 / 0.55) 38%, transparent 72%);
+  mask-image: linear-gradient(115deg, #000 0%, rgb(0 0 0 / 0.55) 38%, transparent 72%);
+  pointer-events: none;
+}
+
+.hero .wrap {
+  position: relative;
+  padding-top: 6rem;
+  padding-bottom: 4.5rem;
+}
+
+/* ── Nav ─────────────────────────────────────────────────────────────── */
+nav {
+  border-bottom: 1px solid var(--border);
+}
+
+nav .in {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 1.1rem 1.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.brand i {
+  font-style: normal;
+  color: var(--muted-foreground);
+}
+
+.navlinks {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.navlink {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.navlink:hover {
+  color: var(--foreground);
+}
+
+/* ── Type ────────────────────────────────────────────────────────────── */
+h1 {
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 5.4vw, 3.4rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.15rem;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+h1 em {
+  font-style: normal;
+  color: var(--muted-foreground);
+}
+
+.lede {
+  color: var(--muted-foreground);
+  font-size: 1.05rem;
+  max-width: 54ch;
+  margin: 0 0 2.25rem;
+}
+
+h2 {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.4rem;
+  font-weight: 500;
+}
+
+p {
+  margin: 0 0 1rem;
+  max-width: 70ch;
+}
+
+a {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border-strong);
+}
+
+a:hover {
+  text-decoration-color: var(--foreground);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 1px solid var(--ring);
+  outline-offset: 3px;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────── */
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.8rem 1.3rem;
+  border: 1px solid var(--border-strong);
+  color: var(--foreground);
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: var(--card);
+  border-color: var(--border-selected);
+  text-decoration: none;
+}
+
+.btn.solid {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+.btn.solid:hover {
+  background: var(--primary-hover);
+}
+
+/* ── The curl strip ──────────────────────────────────────────────────── */
+.strip {
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+}
+
+.strip .in {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 1rem 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--muted-foreground);
+  overflow-x: auto;
+}
+
+.strip b {
+  color: var(--foreground);
+  font-weight: 400;
+  text-transform: uppercase;
+  border-right: 1px solid var(--border);
+  padding-right: 1.5rem;
+  white-space: nowrap;
+}
+
+.strip span {
+  white-space: nowrap;
+}
+
+/* ── Capability groups ───────────────────────────────────────────────── */
+.group {
+  margin: 4rem 0 0;
+}
+
+.grouphead {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.7rem;
+  margin-bottom: 1.5rem;
+}
+
+.grouphead h2 {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.grouphead p {
+  margin: 0.55rem 0 0;
+  color: var(--muted-foreground);
+  font-size: 0.95rem;
+  max-width: 64ch;
+}
+
+/* The hairline grid is drawn by the CARDS, not by the container.
+   A container painted --border and shown through a 1px gap is the obvious
+   way and it is wrong: the last row rarely divides evenly, so the leftover
+   cells paint too and read as cards that failed to load. A box-shadow ring
+   per card costs no layout, overlaps its neighbour's at a 1px gap to make one
+   shared rule, and leaves an empty cell empty. */
+.cards {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+}
+
+.card {
+  background: var(--background);
+  box-shadow: 0 0 0 1px var(--border);
+  padding: 1.35rem 1.4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.card:hover {
+  background: var(--card);
+}
+
+.card h3 {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.card .addr {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--muted-foreground);
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--foreground);
+  opacity: 0.86;
+}
+
+.ops {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.7rem;
+}
+
+.ops li {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Workspaces ──────────────────────────────────────────────────────── */
+.workspaces {
+  margin: 5rem 0 0;
+  border-top: 1px solid var(--border);
+  padding-top: 3rem;
+}
+
+.steps {
+  display: grid;
+  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  margin-top: 2rem;
+}
+
+.step b {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 400;
+  margin: 0 0 0.6rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+}
+
+.step p {
+  font-size: 0.93rem;
+  margin: 0;
+  color: var(--foreground);
+  opacity: 0.86;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────── */
+footer {
+  margin-top: 5rem;
+  padding: 2rem 0 4rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-size: 0.85rem;
+}
+
+footer a {
+  color: var(--muted-foreground);
+}
+
+.fmap {
+  display: grid;
+  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  margin: 0 0 2rem;
+  font-size: 0.85rem;
+}
+
+.fmap b {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 400;
+  margin: 0 0 0.6rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+}
+
+.fmap a {
+  display: block;
+  color: var(--foreground);
+  text-decoration: none;
+  margin: 0.3rem 0 0;
+}
+
+.fmap a:hover {
+  text-decoration: underline;
+}
+
+.fend {
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  font-size: 0.82rem;
+}

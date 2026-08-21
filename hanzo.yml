@@ -1,0 +1,35 @@
+# Canonical CI/CD config for hanzoai/works — read by the shared hanzoai/ci
+# reusable workflow (.hanzo/workflows/cicd.yml) and by platform.hanzo.ai.
+#
+# NO `images:` and NO `deploy:`, deliberately. hanzo.works is a static export
+# that ships to the Sites plane (.hanzo/workflows/deploy.yml), not a container
+# the operator reconciles. Declaring an image here would build and push an
+# artifact nothing pulls; declaring a deploy would name an App CR that does not
+# exist. What remains is the gate the reusable runs on every push and PR.
+
+test:
+  # Types are checked by tsc directly rather than through a lint pass. There is
+  # no eslint here on purpose: every rule that would have run is either already
+  # enforced by `tsc --strict` or is a style opinion, and a lint step that
+  # contributes no signal is a wall in front of the gate that does.
+  - name: typecheck
+    run: |
+      corepack enable
+      pnpm install --frozen-lockfile
+      pnpm typecheck
+
+  # The gate reads the EXPORTED BYTES, not the source, because what can go
+  # wrong here is invisible upstream of the export: a capability card that
+  # renders without its address, an llms.txt that ships stale after a
+  # capability is added, a robots.txt that stops welcoming a crawler. The build
+  # is therefore part of the gate and not a step before it.
+  - name: gates
+    run: |
+      corepack enable
+      pnpm install --frozen-lockfile
+      pnpm build
+      pnpm exec playwright install --with-deps chromium
+      pnpm gates
+
+kms:
+  org: hanzo

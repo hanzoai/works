@@ -1,0 +1,27 @@
+# Response headers for the static export.
+#
+# They are here and not in next.config.mjs because `headers()` does nothing
+# under `output: export` — Next warns about it on every build. This file is the
+# convention the serving layer reads, and it is the same one docs.hanzo.ai
+# uses.
+#
+# Note what is deliberately ABSENT: nothing here discourages a crawler. No
+# X-Robots-Tag, no noarchive, no nosnippet. This site exists to be read by
+# machines; see robots.txt.
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=300
+
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=300

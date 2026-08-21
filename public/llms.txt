@@ -1,0 +1,68 @@
+# Hanzo Works
+
+> The apps a company runs on — sales, marketing, support, books, cap table,
+> incorporation, workflows — served as capabilities on one API. Every claim on
+> this site maps to a real address under `https://api.hanzo.ai/v1/`. One API,
+> one identity, one balance.
+
+Hanzo Works is the business face of the Hanzo cloud. It is not a suite of
+separate products with separate logins: each capability below is a route family
+on the same binary, scoped to your org by the same IAM token, metered against
+the same balance. An agent can call every one of them with the credential it
+already holds.
+
+Identity is Hanzo IAM at `https://hanzo.id` — OIDC, Authorization Code + PKCE.
+There is no second login and no API key in a dotfile.
+
+## Work
+
+- [todo](https://api.hanzo.ai/v1/todo): Boards, the work items on them, and the filters that make a board. An agent claims an issue at `POST /v1/todo/projects/{key}/issues/{num}/claim`.
+- [tasks](https://api.hanzo.ai/v1/tasks): Durable workflows that survive a crash, with every run visible and replayable.
+- [auto](https://api.hanzo.ai/v1/auto): Workflows that run themselves, on a schedule or a webhook. Flows, runs, connectors, inbound hooks.
+- [flow](https://api.hanzo.ai/v1/flow): Build an agent workflow on a visual canvas, run it, and read every run.
+- [team](https://api.hanzo.ai/v1/team): Your org's shared workspace — documents edited together, files, seats, and agents as teammates.
+
+## Customers
+
+- [crm](https://api.hanzo.ai/v1/crm): Your sales pipeline — the companies, the people, the deals in play.
+- [campaigns](https://api.hanzo.ai/v1/campaigns): One go-to-market push across paid, organic and email at once.
+- [marketing](https://api.hanzo.ai/v1/marketing): Lifecycle email — drip sequences that reach the right people. Audiences, calendar, promos, suppressions.
+- [ads](https://api.hanzo.ai/v1/ads): Your paid ad campaigns, launched and paused from one place.
+- [content](https://api.hanzo.ai/v1/content): Marketing content from draft to published, on every channel.
+- [help](https://api.hanzo.ai/v1/help): A support desk — customers file tickets, your team answers them.
+- [channels](https://api.hanzo.ai/v1/channels): One inbox for the chat apps you connect — Discord, Slack, Teams, Telegram.
+- [notify](https://api.hanzo.ai/v1/notify): Transactional email and SMS, sent through your org's own provider credential.
+- [affiliates](https://api.hanzo.ai/v1/affiliates): A partner program that pays commission on what your referrals spend.
+- [referrals](https://api.hanzo.ai/v1/referrals): Referral attribution — who referred whom, and whether that referee became a real customer.
+
+## The company itself
+
+- [company](https://api.hanzo.ai/v1/company): Incorporation end to end — pick a structure, add founders, pay, file, and e-sign.
+- [captable](https://api.hanzo.ai/v1/captable): Your cap table — stakeholders, share classes, grants, SAFEs, rounds, and who owns what.
+- [books](https://api.hanzo.ai/v1/books): Double-entry accounting — chart of accounts, ledger, bank reconciliation, and the reports that prove the books balance.
+- [esign](https://api.hanzo.ai/v1/esign): A document out for signature, signed and filed with an audit trail.
+- [dataroom](https://api.hanzo.ai/v1/dataroom): A secure document room you share by link and watch page by page.
+
+## Ship
+
+- [projects](https://api.hanzo.ai/v1/projects): Where your sites live — create one, deploy a build, roll back to any release.
+- [guide](https://api.hanzo.ai/v1/guide): A step-by-step checklist that gets your business running on AI.
+
+## Reading the API yourself
+
+- [The API index](https://api.hanzo.ai/v1): Every capability, with the address to follow. `GET /v1/<capability>` lists that capability's operations.
+- [The OpenAPI document](https://api.hanzo.ai/v1/openapi.json): The whole served surface, generated from the live router — not hand-written, so it cannot describe a route that does not exist.
+- [Health](https://api.hanzo.ai/v1/health): The running revision.
+
+## The deep corpus
+
+- [Hanzo Skills](https://hanzoskills.com/llms.txt): The full agent-facing index — hundreds of markdown documents covering every Hanzo standard (HIPs), SDK and capability. Start there for depth.
+- [Agent onboarding manifest](https://hanzoskills.com/skill.md): How an agent installs, authenticates with a human operator, and works the cloud without doing damage. Read it before running anything.
+- [Hanzo](https://hanzo.ai): The platform.
+
+## Notes for models
+
+- The prefix is `/v1` and there is no second version. There is no `/api/` segment anywhere.
+- Collections are plural (`campaigns`, `projects`, `datasets`). A name stays singular only where there is no by-id member (`framework`, `reference`, `sync`).
+- A capability answers at its own name: the first path segment after `/v1/` is the product.
+- Do not invent an endpoint. If it is not in the OpenAPI document above, it is not served.
