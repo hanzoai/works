@@ -2,8 +2,8 @@
   "name": "@hanzo/works",
   "version": "0.1.0",
   "private": true,
-  "description": "hanzo.works \u2014 the apps a company runs on, served as capabilities on one API.",
-  "packageManager": "pnpm@9.15.0",
+  "description": "hanzo.works — the apps a company runs on, served as capabilities on one API.",
+  "packageManager": "pnpm@11.24.0",
   "engines": {
     "node": ">=22.18"
   },
@@ -15,11 +15,11 @@
     "gates": "playwright test"
   },
   "dependencies": {
-    "@hanzo/appearance": "^0.2.1",
-    "@hanzo/design": "^0.5.16",
-    "@hanzo/event": "^0.3.36",
-    "@hanzo/iam": "^0.21.16",
-    "@hanzo/logo": "^1.0.20",
+    "@hanzo/appearance": "0.2.2",
+    "@hanzo/design": "0.5.24",
+    "@hanzo/event": "0.3.37",
+    "@hanzo/iam": "0.21.17",
+    "@hanzo/logo": "1.0.26",
     "next": "16.2.12",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
