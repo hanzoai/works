@@ -1,5 +1,7 @@
 # hanzo.works
 
+[![Open in Hanzo](https://hanzo.app/badges/open-in-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/works&ref=main&action=open) [![Edit with Hanzo](https://hanzo.app/badges/edit-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/works&ref=main&action=edit) [![Deploy with Hanzo](https://hanzo.app/badges/deploy-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/works&ref=main&action=deploy)
+
 The business face of the Hanzo cloud: the browser extension, Hanzo Team, the bot
 on your team's chat, and the business apps behind them — CRM, support desk,
 books, cap table, e-sign — on one login and one bill.
